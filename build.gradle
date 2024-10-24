@@ -1,0 +1,41 @@
+plugins {
+	id 'java'
+	id 'com.gradleup.shadow' version '8.3.3'
+}
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+jar {
+	manifest {
+		attributes 'Main-Class': 'com.course.hsa.Application'
+	}
+}
+
+dependencies {
+	// lombok
+	compileOnly 'org.projectlombok:lombok:1.18.34'
+	annotationProcessor 'org.projectlombok:lombok:1.18.34'
+
+	// utils
+	implementation 'org.apache.commons:commons-lang3:3.17.0'
+
+	// JMH
+	implementation 'org.openjdk.jmh:jmh-core:1.37'
+	annotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.37'
+
+	// test
+	testImplementation("org.junit.jupiter:junit-jupiter:5.10.3")
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
